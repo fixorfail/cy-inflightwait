@@ -1,0 +1,16 @@
+{
+  "name": "cy-inflightwait-example",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "cy:open": "cypress open",
+    "cy:run": "cypress run"
+  },
+  "devDependencies": {
+    "cypress": "^15.16.0",
+    "typescript": "^5.5.0"
+  },
+  "dependencies": {
+    "cy-inflightwait": "file:.."
+  }
+}
