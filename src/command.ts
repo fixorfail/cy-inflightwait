@@ -4,6 +4,8 @@ import { formatWaitMessage } from './log';
 export interface WaitForInflightOptions {
   /** Maximum time to wait in ms before resolving regardless. Default: 30 000 */
   timeout?: number;
+  /** Polling interval, in milliseconds. Defaults to 50. */
+  pollInterval?: number;
   /** Initial pause to let requests start before checking. Default: 150 */
   duckingDelay?: number;
   /** Idle period after the last request completes before resolving. Default: 500 */
@@ -20,6 +22,7 @@ export function registerCommand(tracker: InflightTracker): void {
     const timeout = options.timeout ?? DEFAULT_TIMEOUT_MS;
     const duckingDelay = options.duckingDelay ?? DEFAULT_DUCKING_MS;
     const coolDown = options.coolDown ?? DEFAULT_COOLDOWN_MS;
+    const pollInterval = options.pollInterval ?? POLL_INTERVAL_MS;
 
     const log = Cypress.log({
       name: 'waitForInflight',
@@ -63,7 +66,7 @@ export function registerCommand(tracker: InflightTracker): void {
             }
           }
 
-          setTimeout(tick, POLL_INTERVAL_MS);
+          setTimeout(tick, pollInterval);
         };
 
         tick();
